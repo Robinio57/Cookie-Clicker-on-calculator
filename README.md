@@ -12,6 +12,7 @@ This project is a simplified version of the famous Cookie Clicker game, adapted 
 
 ## Requirements
 A **Casio Graph Math+ calculator.**
+
 Required libraries to run Python scripts on the calculator: **casioplot** and **turtle**.
 
 ## Installation
