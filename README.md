@@ -28,4 +28,4 @@ View Achievements: Press `CATALOG` to see your achievements.
 Access Settings: Press `TOOLS` to access settings.
 Quit the Game: Press `RETURN` to exit.
 
-**Author :** ROBINIO
+**Author :** Robinio57
