@@ -21,11 +21,11 @@ Required libraries to run Python scripts on the calculator: **casioplot** and **
 3. Run the cookie.py file to start the game.
 
 ## How to Play
-Start the Game: Press any key to begin.
-Collect Cookies: Press `OK` to earn cookies.
-Buy Upgrades: Use keys `1`, `2`, and `3` to purchase upgrades.
-View Achievements: Press `CATALOG` to see your achievements.
-Access Settings: Press `TOOLS` to access settings.
-Quit the Game: Press `RETURN` to exit.
+- Start the Game: Press any key to begin.
+- Collect Cookies: Press `OK` to earn cookies.
+- Buy Upgrades: Use keys `1`, `2`, and `3` to purchase upgrades.
+- View Achievements: Press `CATALOG` to see your achievements.
+- Access Settings: Press `TOOLS` to access settings.
+- Quit the Game: Press `RETURN` to exit.
 
 **Author :** Robinio57
