@@ -1,7 +1,7 @@
 from turtle import *
 from casioplot import *
 
-def parametre():
+def settings():
   clear()
   running=True
   page="home"
@@ -67,7 +67,7 @@ def parametre():
         clear()
     wait(9990)
     
-def achievement_fonc(cheat,cookie,ajout,auto,auto_speed,all_achi,achievement,achi_nb,achi_1,achi_1000,achi_50000,achi_ajout_10,achi_auto_10,achi_speed_5,achi_speed_20,achi_coquin):
+def achievement_fonc(cheat,cookie,add,auto,auto_speed,all_achi,achievement,achi_nb,achi_1,achi_1000,achi_50000,achi_add_10,achi_auto_10,achi_speed_5,achi_speed_20,achi_hungry):
   if achi_1:
     if cookie>=1:
       goto(-175,-65)
@@ -76,7 +76,7 @@ def achievement_fonc(cheat,cookie,ajout,auto,auto_speed,all_achi,achievement,ach
       achievement+=1
       achi_1=False
       clear()
-      return all_achi,achievement,achi_nb,achi_1,achi_1000,achi_50000,achi_ajout_10,achi_auto_10,achi_speed_5,achi_speed_20,achi_coquin
+      return all_achi,achievement,achi_nb,achi_1,achi_1000,achi_50000,achi_add_10,achi_auto_10,achi_speed_5,achi_speed_20,achi_hungry
   if achi_1000:
     if cookie>=1000:
       goto(-175,-65)
@@ -85,26 +85,25 @@ def achievement_fonc(cheat,cookie,ajout,auto,auto_speed,all_achi,achievement,ach
       achievement+=1
       achi_1000=False
       clear()
-      return all_achi,achievement,achi_nb,achi_1,achi_1000,achi_50000,achi_ajout_10,achi_auto_10,achi_speed_5,achi_speed_20,achi_coquin
+      return all_achi,achievement,achi_nb,achi_1,achi_1000,achi_50000,achi_add_10,achi_auto_10,achi_speed_5,achi_speed_20,achi_hungry
   if achi_50000:
     if cookie>=50000:
-      #if not cheat:
-        goto(-175,-65)
-        write("Do you have any life ? : reach 50000 cookies")
-        wait(200000)
-        achievement+=1
-        achi_50000=False
-        clear()
-        return all_achi,achievement,achi_nb,achi_1,achi_1000,achi_50000,achi_ajout_10,achi_auto_10,achi_speed_5,achi_speed_20,achi_coquin
-  if achi_ajout_10:
-    if ajout>=10:
+      goto(-175,-65)
+      write("Do you have any life ? : reach 50000 cookies")
+      wait(200000)
+      achievement+=1
+      achi_50000=False
+      clear()
+      return all_achi,achievement,achi_nb,achi_1,achi_1000,achi_50000,achi_add_10,achi_auto_10,achi_speed_5,achi_speed_20,achi_hungry
+  if achi_add_10:
+    if add>=10:
       goto(-175,-65)
       write("It's adding up... : reach 10 add upgrades")
       wait(200000)
       achievement+=1
-      achi_ajout_10=False
+      achi_add_10=False
       clear()
-      return all_achi,achievement,achi_nb,achi_1,achi_1000,achi_50000,achi_ajout_10,achi_auto_10,achi_speed_5,achi_speed_20,achi_coquin
+      return all_achi,achievement,achi_nb,achi_1,achi_1000,achi_50000,achi_add_10,achi_auto_10,achi_speed_5,achi_speed_20,achi_hungry
   if achi_auto_10:
     if auto>=10:
       goto(-175,-65)
@@ -113,7 +112,7 @@ def achievement_fonc(cheat,cookie,ajout,auto,auto_speed,all_achi,achievement,ach
       achievement+=1
       achi_auto_10=False
       clear()
-      return all_achi,achievement,achi_nb,achi_1,achi_1000,achi_50000,achi_ajout_10,achi_auto_10,achi_speed_5,achi_speed_20,achi_coquin
+      return all_achi,achievement,achi_nb,achi_1,achi_1000,achi_50000,achi_add_10,achi_auto_10,achi_speed_5,achi_speed_20,achi_hungry
   if achi_speed_5:
     if auto_speed<=16:
       goto(-175,-65)
@@ -122,7 +121,7 @@ def achievement_fonc(cheat,cookie,ajout,auto,auto_speed,all_achi,achievement,ach
       achievement+=1
       achi_speed_5=False
       clear()
-      return all_achi,achievement,achi_nb,achi_1,achi_1000,achi_50000,achi_ajout_10,achi_auto_10,achi_speed_5,achi_speed_20,achi_coquin
+      return all_achi,achievement,achi_nb,achi_1,achi_1000,achi_50000,achi_add_10,achi_auto_10,achi_speed_5,achi_speed_20,achi_hungry
   if achi_speed_20:
     if auto_speed==1:
       goto(-175,-65)
@@ -133,15 +132,15 @@ def achievement_fonc(cheat,cookie,ajout,auto,auto_speed,all_achi,achievement,ach
       achievement+=1
       achi_speed_20=False
       clear()
-      return all_achi,achievement,achi_nb,achi_1,achi_1000,achi_50000,achi_ajout_10,achi_auto_10,achi_speed_5,achi_speed_20,achi_coquin
-  if achi_coquin==1:
+      return all_achi,achievement,achi_nb,achi_1,achi_1000,achi_50000,achi_add_10,achi_auto_10,achi_speed_5,achi_speed_20,achi_hungry
+  if achi_hungry==1:
     goto(-175,-65)
     write("8=====- : found a secret code")
     wait(200000)
-    achi_coquin+=1
+    achi_hungry+=1
     achievement+=1
     clear()
-    return all_achi,achievement,achi_nb,achi_1,achi_1000,achi_50000,achi_ajout_10,achi_auto_10,achi_speed_5,achi_speed_20,achi_coquin
+    return all_achi,achievement,achi_nb,achi_1,achi_1000,achi_50000,achi_add_10,achi_auto_10,achi_speed_5,achi_speed_20,achi_hungry
   if all_achi:
     if achievement==achi_nb-1:
       goto(-175,-65)
@@ -150,8 +149,8 @@ def achievement_fonc(cheat,cookie,ajout,auto,auto_speed,all_achi,achievement,ach
       achievement+=1
       all_achi=False
       clear()
-      return all_achi,achievement,achi_nb,achi_1,achi_1000,achi_50000,achi_ajout_10,achi_auto_10,achi_speed_5,achi_speed_20,achi_coquin
-  return all_achi,achievement,achi_nb,achi_1,achi_1000,achi_50000,achi_ajout_10,achi_auto_10,achi_speed_5,achi_speed_20,achi_coquin
+      return all_achi,achievement,achi_nb,achi_1,achi_1000,achi_50000,achi_add_10,achi_auto_10,achi_speed_5,achi_speed_20,achi_hungry
+  return all_achi,achievement,achi_nb,achi_1,achi_1000,achi_50000,achi_add_10,achi_auto_10,achi_speed_5,achi_speed_20,achi_hungry
       
 def error():
   write("Error")
@@ -161,7 +160,7 @@ def wait(step):
   for i in range(step):
     pass
 
-def end(cookie,ajout,auto,auto_speed,achi,achi_nb):
+def end(cookie,add,auto,auto_speed,achi,achi_nb,cheat):
   clear()
   run_end=True
   wait(9900)
@@ -181,13 +180,16 @@ def end(cookie,ajout,auto,auto_speed,achi,achi_nb):
   goto(-175,75)
   write("cookie : "+str(cookie))
   goto(-175,62)
-  write("ajout achete : "+str(ajout))
+  write("add bought : "+str(add))
   goto(-175,49)
-  write("auto achete : "+str(auto))
+  write("auto bought : "+str(auto))
   goto(-175,36)
-  write("auto speed achete : "+str(21-auto_speed))
+  write("auto speed bought : "+str(21-auto_speed))
   goto(-175,23)
-  write("achievement : "+str(achi)+" / "+str(achi_nb))
+  if not cheat:
+    write("achievement : "+str(achi)+" / "+str(achi_nb))
+  else:
+    write("achievement enabled")
   return False
 
 def start():
