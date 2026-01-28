@@ -189,7 +189,7 @@ def end(cookie,add,auto,auto_speed,achi,achi_nb,cheat):
   if not cheat:
     write("achievement : "+str(achi)+" / "+str(achi_nb))
   else:
-    write("achievement enabled")
+    write("achievement disabled")
   return False
 
 def start():
