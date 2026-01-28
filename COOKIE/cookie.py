@@ -53,7 +53,7 @@ class Game:
       if not self.cheat:
         write("achievement : "+str(self.achi)+" / "+str(self.achi_nb))
       else:
-        write("achievement enabled")
+        write("achievement disabled")
       if not self.cheat:
         self.all_achi,self.achi,self.achi_nb,self.achi_1,self.achi_1000,self.achi_50000,self.achi_add_10,self.achi_auto_10,self.achi_speed_5,self.achi_speed_20,self.achi_hungry=achievement_fonc(
           self.cheat,self.cookie,self.add,self.auto,self.auto_speed,self.all_achi,self.achi,self.achi_nb,self.achi_1,self.achi_1000,self.achi_50000,self.achi_add_10,self.achi_auto_10,self.achi_speed_5,self.achi_speed_20,self.achi_hungry)
@@ -267,7 +267,7 @@ class Game:
           write("-"*200)
       else:
         goto(-175,95)
-        write("You used cheats, achievements are enabled")
+        write("You used cheats, achievements are disabled")
         wait(9900)
       if key==K_BACK:
         clear()
