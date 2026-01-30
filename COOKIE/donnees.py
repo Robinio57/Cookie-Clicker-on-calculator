@@ -1,6 +1,12 @@
 from turtle import *
 from casioplot import *
 
+def no_cookie():
+  goto(-100,-80)
+  write("You can't buy that, you don't have enough cookies!")
+  wait(150000)
+  clear()
+
 def settings():
   clear()
   running=True
@@ -10,8 +16,8 @@ def settings():
     if page=="home":
       goto(-175,85)
       write("SETTINGS")
-      goto(-175,70)
-      write("1-color")
+      goto(-175 ,70)
+      write("1- color")
       if key==K_1:
         page="color"
         wait(9900)
@@ -193,6 +199,10 @@ def end(cookie,add,auto,auto_speed,achi,achi_nb,cheat):
   return False
 
 def start():
+  forward(0)
+  hideturtle()
+  penup()
+  pencolor("black")
   goto(-100,30)
   write("Welcome in Cookie Clicker !!")
   goto(-100,20)
@@ -202,9 +212,15 @@ def start():
   goto(-100,0)
   write("To see your achievements : press CATALOG")
   goto(-100,-10)
-  write("To change the parameters : press TOOLS")
+  write("To change the settings : press TOOLS")
   goto(-100,-20)
+  write("To use cheat codes : press VARIABLE")
+  goto(-100,-30)
   write("To start the game : press any key")
+  goto(-190,-80)
+  write("v1.1")
+  goto(80,-80)
+  write("Author : Robinio57")
 
 K_TOOL=36
 K_BOOK=35
