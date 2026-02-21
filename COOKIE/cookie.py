@@ -1,4 +1,6 @@
-from donnees import *
+from data import *
+from setting import *
+from achiev import *
 
 class Game:
   def __init__(self):
@@ -8,12 +10,18 @@ class Game:
     self.achi_1000=True
     self.achi_50000=True
     self.achi=0
-    self.achi_nb=9
+    self.achi_nb=13
     self.achi_add_10=True
     self.achi_auto_10=True
     self.achi_speed_5=True
     self.achi_speed_20=True
+    self.achi_rebirth_1=True
+    self.achi_rebirth_5=True
+    self.achi_who_fuck_are_you=True
+    self.achi_max_out_game=True
     self.cheat=False
+    self.free_upgrades=False
+    self.multiplicator=1
     self.cookie=0
     self.add=1
     self.price_add=15
@@ -21,6 +29,9 @@ class Game:
     self.price_auto=30
     self.auto_speed=21
     self.price_auto_speed=50
+    self.rebirth=0
+    self.price_rebirth=100000
+    self.used_key_dict = {"K_cookie":24,"K_add":81,"K_auto":82,"K_speed":83,"K_rebirth":94,"K_achi":35,"K_settings":21,"K_code":33,"K_end":22}
   
   def run(self):
     start()
@@ -34,31 +45,40 @@ class Game:
     counter=0
     while running:
       goto(-175,75)
-      write("Cookie : "+str(self.cookie)+" | key : OK")
+      write("Cookie : "+str(int(self.cookie))+" | key : "+K_dict[self.used_key_dict["K_cookie"]])
       goto(-175,62)
-      write("Cookie Per Click : "+str(self.add)+" | cost : "+str(self.price_add)+" | key : 1")
+      if int(self.add*self.multiplicator)==self.add*self.multiplicator:
+        write("Cookie Per Click : "+str(int(self.add*self.multiplicator))+" | cost : "+str(self.price_add)+" | key : "+K_dict[self.used_key_dict["K_add"]])
+      else:
+        write("Cookie Per Click : "+str(self.add*self.multiplicator)+" | cost : "+str(self.price_add)+" | key : "+K_dict[self.used_key_dict["K_add"]])
       goto(-175,49)
-      write("Auto : "+str(self.auto)+" | cost : "+str(self.price_auto)+" | key : 2")
+      if int(self.auto*self.multiplicator)==self.auto*self.multiplicator:
+        write("Auto : "+str(int(self.auto*self.multiplicator))+" | cost : "+str(self.price_auto)+" | key : "+K_dict[self.used_key_dict["K_auto"]])
+      else:
+        write("Auto : "+str(self.auto)+" | cost : "+str(self.price_auto)+" | key : "+K_dict[self.used_key_dict["K_auto"]])
       goto(-175,36)
       if self.auto_speed>1:
-        write("Auto Speed : "+str(21-self.auto_speed)+"/20 | cost : "+str(self.price_auto_speed)+" | key : 3")
+        write("Auto Speed : "+str(21-self.auto_speed)+"/20 | cost : "+str(self.price_auto_speed)+" | key : "+K_dict[self.used_key_dict["K_speed"]])
       else:
         write("Auto Speed : "+str(21-self.auto_speed)+"/20")
       goto(-175,23)
+      write("Rebirth : "+str(self.rebirth)+" | cost : "+str(self.price_rebirth)+" | key : "+K_dict[self.used_key_dict["K_rebirth"]])
+      goto(-175,10)
       if not self.cheat:
-        write("Achievement : "+str(self.achi)+" / "+str(self.achi_nb)+" | key : CATALOG")
+        write("Achievement : "+str(self.achi)+" / "+str(self.achi_nb)+" | key : "+K_dict[self.used_key_dict["K_achi"]])
       else:
         write("Achievement disabled")
-      goto(-175,10)
-      write("Settings | key : TOOLS")
+      goto(-175,-3)
+      write("Settings | key : "+K_dict[self.used_key_dict["K_settings"]])
+      goto(-175,-16)
+      write("Quit Game | key : "+K_dict[self.used_key_dict["K_end"]])
       if not self.cheat:
-        self.all_achi,self.achi,self.achi_nb,self.achi_1,self.achi_1000,self.achi_50000,self.achi_add_10,self.achi_auto_10,self.achi_speed_5,self.achi_speed_20,self.achi_hungry=achievement_fonc(
-          self.cheat,self.cookie,self.add,self.auto,self.auto_speed,self.all_achi,self.achi,self.achi_nb,self.achi_1,self.achi_1000,self.achi_50000,self.achi_add_10,self.achi_auto_10,self.achi_speed_5,self.achi_speed_20,self.achi_hungry)
+        achievement_fonc(self)
       key=getkey()
-      if key==K_OK :
-        self.cookie+=self.add
+      if key==self.used_key_dict["K_cookie"] :
+        self.cookie+=self.add*self.multiplicator
         clear()
-      elif key==K_1:
+      elif key==self.used_key_dict["K_add"]:
         if self.cookie>=self.price_add:
           self.add+=1  
           self.cookie-=self.price_add
@@ -66,7 +86,7 @@ class Game:
           clear()
         else:
           no_cookie()
-      elif key==K_2:
+      elif key==self.used_key_dict["K_auto"]:
         if self.cookie>=self.price_auto:
           self.auto+=1
           self.cookie-=self.price_auto
@@ -74,7 +94,7 @@ class Game:
           clear()
         else:
           no_cookie()
-      elif key==K_3:
+      elif key==self.used_key_dict["K_speed"]:
         if self.cookie>=self.price_auto_speed and self.auto_speed>1:
           self.auto_speed-=1
           self.cookie-=self.price_auto_speed
@@ -83,24 +103,30 @@ class Game:
           clear()
         else:
           no_cookie()
-      elif key==K_BOOK:
-        self.achi_screen()
+      elif key==self.used_key_dict["K_rebirth"]:
+        if self.cookie>=self.price_rebirth:
+          rebirth_func(self)
+          clear()
+        else:
+          no_cookie()
+      elif key==self.used_key_dict["K_achi"]:
+        achi_screen(self)
         wait(9990)
-      elif key==K_VAR:        
+      elif key==self.used_key_dict["K_code"]:        
         self.code()
         wait(9990)
-      elif key==K_TOOL:
-        settings()
+      elif key==self.used_key_dict["K_settings"]:
+        settings(self)
         clear()
         wait(9990)
-      elif key==K_BACK:
-        running=end(self.cookie,self.add,self.auto,self.auto_speed,self.achi,self.achi_nb,self.cheat)
+      elif key==self.used_key_dict["K_end"]:
+        running=end(self)
       wait(9990)
       counter+=1
       if running:
         if counter==self.auto_speed:
           counter=0
-          self.cookie+=self.auto
+          self.cookie+=self.auto*self.multiplicator
           if self.auto>=1:
             clear()
   
@@ -112,21 +138,21 @@ class Game:
       key=None
       key=getkey()
       wait(9990)
-      if key!=K_VAR and key!=None and len(keylist)<3:
+      if key!=33 and key!=None and len(keylist)<3:
         keylist.append(key)
         write(str(key))
         wait(50000)
       elif len(keylist)==3:
-        if keylist[0]==K_1:
-          if keylist[1]==K_2:
-            if keylist[2]==K_3:
+        if keylist[0]==81:
+          if keylist[1]==82:
+            if keylist[2]==83:
               clear()
               if not self.cheat:
                 write("Achievements will be impossible")
                 cheat_run=True
                 while cheat_run:
                   key=getkey()
-                  if key==K_OK or key==K_EXE:
+                  if key==24 or key==95:
                     clear()
                     self.cheat=True
                     self.cookie+=10000
@@ -145,23 +171,25 @@ class Game:
               error()
           else:
             error()
-        elif keylist[0]==K_3:
-          if keylist[1]==K_2:
-            if keylist[2]==K_1:
+        elif keylist[0]==83:
+          if keylist[1]==82:
+            if keylist[2]==81:
               clear()
               if not self.cheat:
                 write("Achievements will be impossible")
                 cheat_run=True
                 while cheat_run:
                   key=getkey()
-                  if key==K_OK or key==K_EXE:
+                  if key==24 or key==95:
                     clear()
                     write("Everything is free now !")
                     wait(50000)
                     self.price_add=0
                     self.price_auto=0
                     self.price_auto_speed=0
+                    self.price_rebirth=0
                     self.cheat=True
+                    self.free_upgrades=True
                     cheat_run=False
                   elif key==None:
                     pass
@@ -178,9 +206,9 @@ class Game:
               error()
           else:
             error()
-        elif keylist[0]==K_0:
-          if keylist[1]==K_6:
-            if keylist[2]==K_9:
+        elif keylist[0]==91:
+          if keylist[1]==76:
+            if keylist[2]==63:
               clear()
               write("You hungry??")
               wait(50000)
@@ -194,89 +222,6 @@ class Game:
           error()
         run_code=False
       clear()
-    
-  def achi_screen(self):
-    run_achi=True
-    clear()
-    screen=0
-    while run_achi:
-      key=getkey()
-      if not self.cheat:
-        if screen==0:
-          goto(-175,95)
-          if not self.achi_1:
-            write("There is a begining to everything : collect your 1st cookie")
-          else:
-            write("???")
-          goto(-185,85)
-          write("-"*200)
-          goto(-175,75)
-          if not self.achi_1000:
-            write("Like a grandma : reach 1000 cookies")
-          else:
-            write("???")
-          goto(-185,65)
-          write("-"*200)
-          goto(-175,55)
-          if not self.achi_50000:
-            write("Do you have any life ? : reach 50000 cookies")
-          else:
-            write("???")
-          goto(-185,45)
-          write("-"*200)
-          goto(-175,35)
-          if not self.achi_add_10:
-            write("It's adding up... : reach 10 add upgrades")
-          else:
-            write("???")
-          goto(-185,25)
-          write("-"*200)
-          goto(-175,15)
-          if not self.achi_auto_10:
-            write("A little factory : reach 10 auto upgrades")
-          else:
-            write("???")
-          goto(-185,5)
-          write("-"*200)
-          goto(-175,-5)
-          if not self.achi_speed_5:
-            write("The FLASH : reach 5 auto speed upgrades")
-          else:
-            write("???")
-          goto(-185,-15)
-          write("-"*200)
-          if not self.achi_speed_20:
-            goto(-175,-25)
-            write("Have you kidnapped chinese kids ? : reach all auto speed")
-            goto(-175,-35)
-            write("upgrades")
-          else:
-            goto(-175,-30)
-            write("???")
-          goto(-185,-45)
-          write("-"*200)
-          goto(-175,-55)
-          if self.achi_hungry==2:
-            write("8=====- : found a secret code")
-          else:
-            write("???")
-          goto(-185,-65)
-          write("-"*200)
-          goto(-175,-75)
-          if not self.all_achi:
-            write("Finisher : you've finished the game")
-          else:
-            write("???")
-          goto(-185,-85)
-          write("-"*200)
-      else:
-        goto(-175,95)
-        write("You used cheat codes, achievements are disabled")
-        wait(9900)
-      if key==K_BACK:
-        clear()
-        run_achi=False
-      wait(9900)
 
 game = Game()
 game.run()
