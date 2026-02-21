@@ -90,10 +90,11 @@ def start():
   goto(-100,-40)
   write("To start the game : press any key")
   goto(-190,-80)
-  write("v2.0 Beta")
+  write("v2.0")
   goto(80,-80)
   write("Author : Robinio57")
 
 K_dict = {12:"Home",13:"Left weird arrow",14:"Up arrow",15:"Right weird arrow",16:"Up weird arrow",21:"Settings",22:"Back",23:"Left arrow",24:"Ok",25:"Right arrow",26:"Down weird arrow",31:"Shift",32:"Alpha",33:"Variable",34:"Down arrow",35:"Catalog",
           36:"Tools",41:"x",42:"Fraction",43:"Squareroot",44:"Power",45:"Squared",46:"Exponential",51:"Virgula",52:"Sin",53:"Cos",54:"Tan",55:"Left round bracket",56:"Right round bracket", 61:"7",62:"8",63:"9",64:"Back space",71:"4",72:"5",73:"6",
+
           74:"*",75:"/",81:"1",82:"2",83:"3",84:"+",85:"-",91:"0",92:".",93:"Power of 10", 94:"Format", 95:"Exe"}
