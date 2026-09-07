@@ -1,6 +1,12 @@
 from turtle import *
 from casioplot import *
 
+K_dict = {12:("Home","Home"),13:("Left weird arrow","Fleche gauche bizarre"),14:("Up arrow","Fleche haut"),15:("Right weird arrow","Fleche droite bizarre"),16:("Up weird arrow","Fleche haut bizarre"),21:("Settings","Settings"),
+          22:("Back","retour"),23:("Left arrow","Fleche gauche"),24:("OK","OK"),25:("Right arrow","Fleche droite"),26:("Down weird arrow","Fleche bas bizarre"),31:("Shift","Shift"),32:("Alpha","Alpha"),33:("Variable","Variable"),
+          34:("Down arrow","Fleche bas"),35:("Catalog","Catalog"),36:("Tools","Tools"),41:("x","x"),42:("Fraction","Fraction"),43:("Squareroot","Racine carre"),44:("Exponent","Exposant"),45:("Squared","Carre"),46:("Exponential","exponentielle"),
+          51:("Comma","Virgule"),52:("Sin","Sin"),53:("Cos","Cos"),54:("Tan","Tan"),55:("Left round bracket","Parenthese gauche"),56:("Right round bracket","Parenthese droite"),61:("7","7"),62:("8","8"),63:("9","9"),64:("Back space","Effacer"),
+          71:("4","4"),72:("5","5"),73:("6","6"),74:("*","*"),75:("/","/"),81:("1","1"),82:("2","2"),83:("3","3"),84:("+","+"),85:("-","-"),91:("0","0"),92:(".","."),93:("Power of 10","Puissance de 10"), 94:("Format","Format"), 95:("Exe","Exe")}
+
 def rebirth_func(self):
   if not self.free_upgrades:
     self.price_rebirth*=5   
@@ -8,7 +14,7 @@ def rebirth_func(self):
     self.price_auto=30
     self.price_auto_speed=50
   else:
-    self.price_rebirth*=5  
+    self.price_rebirth=0  
     self.price_add=0
     self.price_auto=0
     self.price_auto_speed=0
@@ -19,15 +25,21 @@ def rebirth_func(self):
   self.auto=0
   self.auto_speed=21
 
-def no_cookie():
-  goto(-100,-80)
-  write("You can't buy that, you don't have enough cookies!")
+def no_cookie(self):
+  goto(-180,-80)
+  write(self.lg_dict["no_cookie"][self.index_lg])
   wait(150000)
   clear()
 
-def error():
-  write("Error")
+def error(self):
+  write(self.lg_dict["error"][self.index_lg])
   wait(50000)
+
+def max_upgrades(self):
+  goto(-180,-80)
+  write(self.lg_dict["max"][self.index_lg])
+  wait(150000)
+  clear()
 
 def wait(step):
   for i in range(step):
@@ -39,8 +51,12 @@ def end(self):
   wait(9900)
   while run_end:
     key=getkey()
-    goto(-50,0)
-    write("Do you want to quit the game?")
+    goto(-160,0)
+    write(self.lg_dict["end1"][self.index_lg])
+    goto(-160,-15)
+    write(self.lg_dict["end2"][self.index_lg])
+    goto(-160,-70)
+    write(self.lg_dict["end3"][self.index_lg])
     wait(10000)
     if key==None:
       pass
@@ -52,49 +68,40 @@ def end(self):
     wait(9900)
   clear()
   goto(-175,75)
-  write("Cookie : "+str(self.cookie))
+  write(self.lg_dict["end4"][self.index_lg])
   goto(-175,62)
-  write("Add bought : "+str(self.add-1))
+  write(self.lg_dict["end5"][self.index_lg])
   goto(-175,49)
-  write("Auto bought : "+str(self.auto))
+  write(self.lg_dict["end6"][self.index_lg])
   goto(-175,36)
-  write("Auto speed bought : "+str(21-self.auto_speed))
+  write(self.lg_dict["end7"][self.index_lg])
   goto(-175,23)
-  write("Rebirth bought : "+str(self.rebirth))
+  write(self.lg_dict["end8"][self.index_lg])
   goto(-175,10)
   if not self.cheat:
-    write("Achievement : "+str(self.achi)+" / "+str(self.achi_nb))
+    write(self.lg_dict["end9"][self.index_lg])
   else:
-    write("Achievement disabled")
+    write(self.lg_dict["achi2"][self.index_lg])
   return False
 
-def start():
+def start(self):
   forward(0)
   hideturtle()
   penup()
   pencolor("black")
-  goto(-100,30)
-  write("Welcome in Cookie Clicker !!")
-  goto(-100,20)
-  write("To obtain cookies : press OK")
-  goto(-100,10)
-  write("To buy upgrades : press 1, 2 or 3")
-  goto(-100,0)
-  write("To buy rebirths : press FORMAT")
-  goto(-100,-10)
-  write("To see your achievements : press CATALOG")
-  goto(-100,-20)
-  write("To change the settings : press TOOLS")
-  goto(-100,-30)
-  write("To use cheat codes : press VARIABLE")
-  goto(-100,-40)
-  write("To start the game : press any key")
-  goto(-190,-80)
-  write("v2.0")
-  goto(80,-80)
-  write("Author : Robinio57")
-
-K_dict = {12:"Home",13:"Left weird arrow",14:"Up arrow",15:"Right weird arrow",16:"Up weird arrow",21:"Settings",22:"Back",23:"Left arrow",24:"Ok",25:"Right arrow",26:"Down weird arrow",31:"Shift",32:"Alpha",33:"Variable",34:"Down arrow",35:"Catalog",
-          36:"Tools",41:"x",42:"Fraction",43:"Squareroot",44:"Power",45:"Squared",46:"Exponential",51:"Virgula",52:"Sin",53:"Cos",54:"Tan",55:"Left round bracket",56:"Right round bracket", 61:"7",62:"8",63:"9",64:"Back space",71:"4",72:"5",73:"6",
-
-          74:"*",75:"/",81:"1",82:"2",83:"3",84:"+",85:"-",91:"0",92:".",93:"Power of 10", 94:"Format", 95:"Exe"}
+  goto(-160,30)
+  write(self.lg_dict["start1"][self.index_lg])
+  goto(-160,20)
+  write(self.lg_dict["start2"][self.index_lg])
+  goto(-160,10)
+  write(self.lg_dict["start3"][self.index_lg])
+  goto(-160,0)
+  write(self.lg_dict["start4"][self.index_lg])
+  goto(-160,-10)
+  write(self.lg_dict["start5"][self.index_lg])
+  goto(-160,-20)
+  write(self.lg_dict["start6"][self.index_lg])
+  goto(-160,-30)
+  write(self.lg_dict["start7"][self.index_lg])
+  goto(-160,-40)
+  write(self.lg_dict["start8"][self.index_lg])

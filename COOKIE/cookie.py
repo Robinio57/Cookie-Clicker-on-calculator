@@ -1,6 +1,7 @@
 from data import *
 from setting import *
 from achiev import *
+from language import *
 
 class Game:
   def __init__(self):
@@ -32,9 +33,13 @@ class Game:
     self.rebirth=0
     self.price_rebirth=100000
     self.used_key_dict = {"K_cookie":24,"K_add":81,"K_auto":82,"K_speed":83,"K_rebirth":94,"K_achi":35,"K_settings":21,"K_code":33,"K_end":22}
-  
+    self.lg_nb={"en":0,"fr":1,"es":2}
+    self.index_lg=self.lg_nb["fr"]
+    self.K_dict=K_dict
+    self.lg_dict=lg(self)
+    
   def run(self):
-    start()
+    start(self)
     running=True
     while running:
       key = getkey()
@@ -44,34 +49,35 @@ class Game:
     running=True
     counter=0
     while running:
+      self.lg_dict=lg(self)
       goto(-175,75)
-      write("Cookie : "+str(int(self.cookie))+" | key : "+K_dict[self.used_key_dict["K_cookie"]])
+      write(self.lg_dict["cookie"][self.index_lg])
       goto(-175,62)
       if int(self.add*self.multiplicator)==self.add*self.multiplicator:
-        write("Cookie Per Click : "+str(int(self.add*self.multiplicator))+" | cost : "+str(self.price_add)+" | key : "+K_dict[self.used_key_dict["K_add"]])
+        write(self.lg_dict["add1"][self.index_lg])
       else:
-        write("Cookie Per Click : "+str(self.add*self.multiplicator)+" | cost : "+str(self.price_add)+" | key : "+K_dict[self.used_key_dict["K_add"]])
+        write(self.lg_dict["add2"][self.index_lg])
       goto(-175,49)
       if int(self.auto*self.multiplicator)==self.auto*self.multiplicator:
-        write("Auto : "+str(int(self.auto*self.multiplicator))+" | cost : "+str(self.price_auto)+" | key : "+K_dict[self.used_key_dict["K_auto"]])
+        write(self.lg_dict["auto1"][self.index_lg])
       else:
-        write("Auto : "+str(self.auto)+" | cost : "+str(self.price_auto)+" | key : "+K_dict[self.used_key_dict["K_auto"]])
+        write(self.lg_dict["auto2"][self.index_lg])
       goto(-175,36)
       if self.auto_speed>1:
-        write("Auto Speed : "+str(21-self.auto_speed)+"/20 | cost : "+str(self.price_auto_speed)+" | key : "+K_dict[self.used_key_dict["K_speed"]])
+        write(self.lg_dict["speed1"][self.index_lg])
       else:
-        write("Auto Speed : "+str(21-self.auto_speed)+"/20")
+        write(self.lg_dict["speed2"][self.index_lg])
       goto(-175,23)
-      write("Rebirth : "+str(self.rebirth)+" | cost : "+str(self.price_rebirth)+" | key : "+K_dict[self.used_key_dict["K_rebirth"]])
+      write(self.lg_dict["rebirth"][self.index_lg])
       goto(-175,10)
       if not self.cheat:
-        write("Achievement : "+str(self.achi)+" / "+str(self.achi_nb)+" | key : "+K_dict[self.used_key_dict["K_achi"]])
+        write(self.lg_dict["achi1"][self.index_lg])
       else:
-        write("Achievement disabled")
+        write(self.lg_dict["achi2"][self.index_lg])
       goto(-175,-3)
-      write("Settings | key : "+K_dict[self.used_key_dict["K_settings"]])
+      write(self.lg_dict["setting"][self.index_lg])
       goto(-175,-16)
-      write("Quit Game | key : "+K_dict[self.used_key_dict["K_end"]])
+      write(self.lg_dict["quit"][self.index_lg])
       if not self.cheat:
         achievement_fonc(self)
       key=getkey()
@@ -85,7 +91,7 @@ class Game:
           self.price_add=int(self.price_add*1.7)
           clear()
         else:
-          no_cookie()
+          no_cookie(self)
       elif key==self.used_key_dict["K_auto"]:
         if self.cookie>=self.price_auto:
           self.auto+=1
@@ -93,7 +99,7 @@ class Game:
           self.price_auto=int(self.price_auto*1.7)
           clear()
         else:
-          no_cookie()
+          no_cookie(self)
       elif key==self.used_key_dict["K_speed"]:
         if self.cookie>=self.price_auto_speed and self.auto_speed>1:
           self.auto_speed-=1
@@ -102,13 +108,16 @@ class Game:
           counter=0
           clear()
         else:
-          no_cookie()
+          if self.auto_speed==1:
+            max_upgrades(self)
+          else:  
+            no_cookie(self)
       elif key==self.used_key_dict["K_rebirth"]:
         if self.cookie>=self.price_rebirth:
           rebirth_func(self)
           clear()
         else:
-          no_cookie()
+          no_cookie(self)
       elif key==self.used_key_dict["K_achi"]:
         achi_screen(self)
         wait(9990)
@@ -148,7 +157,7 @@ class Game:
             if keylist[2]==83:
               clear()
               if not self.cheat:
-                write("Achievements will be impossible")
+                write(self.lg_dict["imp achi"][self.index_lg])
                 cheat_run=True
                 while cheat_run:
                   key=getkey()
@@ -156,7 +165,7 @@ class Game:
                     clear()
                     self.cheat=True
                     self.cookie+=10000
-                    write("+10000 cookies")
+                    write(self.lg_dict["+cookie"][self.index_lg])
                     wait(50000)
                     cheat_run=False
                   elif key==None:
@@ -165,24 +174,24 @@ class Game:
                     cheat_run=False
               else:
                 self.cookie+=10000
-                write("+10000 cookies")
+                write(self.lg_dict["+cookie"][self.index_lg])
                 wait(50000)
             else:
-              error()
+              error(self)
           else:
-            error()
+            error(self)
         elif keylist[0]==83:
           if keylist[1]==82:
             if keylist[2]==81:
               clear()
               if not self.cheat:
-                write("Achievements will be impossible")
+                write(self.lg_dict["imp achi"][self.index_lg])
                 cheat_run=True
                 while cheat_run:
                   key=getkey()
                   if key==24 or key==95:
                     clear()
-                    write("Everything is free now !")
+                    write(self.lg_dict["no_cost"][self.index_lg])
                     wait(50000)
                     self.price_add=0
                     self.price_auto=0
@@ -197,29 +206,30 @@ class Game:
                     cheat_run=False
               else:
                 clear()
-                write("Everything is free now !")
+                write(self.lg_dict["no cost"][self.index_lg])
                 wait(50000)
                 self.price_add=0
                 self.price_auto=0
                 self.price_auto_speed=0
+                self.price_rebirth=0
             else:
-              error()
+              error(self)
           else:
-            error()
+            error(self)
         elif keylist[0]==91:
-          if keylist[1]==76:
+          if keylist[1]==73:
             if keylist[2]==63:
               clear()
-              write("You hungry??")
+              write(self.lg_dict["hungry"][self.index_lg])
               wait(50000)
               if self.achi_hungry==0:
                 self.achi_hungry+=1
             else:
-              error()
+              error(self)
           else:
-            error()
+            error(self)
         else:
-          error()
+          error(self)
         run_code=False
       clear()
 
