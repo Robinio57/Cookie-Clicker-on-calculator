@@ -4,6 +4,7 @@ def settings(self):
   clear()
   running=True
   page="home"
+  leave=False
   while running:
     key=getkey()
     if page=="home":
@@ -22,26 +23,28 @@ def settings(self):
         wait(9900)
         key=None
         clear()
-        page=color(self)
+        page,leave=color(self)
       if key==82:
         page="key"
         wait(9900)
         key=None
         clear()
-        page=define_key(self)
+        page,leave=define_key(self)
       if key==83:
         page="language"
         wait(9900)
         key=None
         clear()
-        page=language(self)
+        page,leave=language(self)
       if key==91:
         page="about"
         wait(9990)
         key=None
         clear()
-        page=about(self)
-      if key==22:
+        page,leave=about(self)
+      if key==22 or key==12:
+        return
+      if leave:
         return
 
 def about(self):
@@ -53,14 +56,19 @@ def about(self):
     write(self.lg_dict["set_about1"][self.index_lg])
     wait(9990)
     goto(-175,70)
-    write(self.lg_dict["set_about2"][self.index_lg])
-    goto(-175,60)
+    write(self.lg_dict["set_about2.1"][self.index_lg])
+    goto(-175,55)
+    write(self.lg_dict["set_about2.2"][self.index_lg])
+    goto(-175,40)
     write(self.lg_dict["set_about3"][self.index_lg])
-    goto(-175,50)
+    goto(-175,25)
     write(self.lg_dict["set_about4"][self.index_lg])
+    if key==12:
+      clear()
+      return "home",True 
     if key==22:
       clear()
-      return "home"
+      return "home",False 
     wait(9990)
 
 def color(self):
@@ -73,21 +81,21 @@ def color(self):
     wait(9990)
     goto(-175,70)
     write(self.lg_dict["set_color2"][self.index_lg])
-    goto(-175,60)
+    goto(-175,55)
     write(self.lg_dict["set_color3"][self.index_lg])
-    goto(-175,50)
-    write(self.lg_dict["set_color4"][self.index_lg])
     goto(-175,40)
+    write(self.lg_dict["set_color4"][self.index_lg])
+    goto(-175,25)
     write(self.lg_dict["set_color5"][self.index_lg])
-    goto(-175,30)
-    write(self.lg_dict["set_color6"][self.index_lg])
-    goto(-175,20)
-    write(self.lg_dict["set_color7"][self.index_lg])
     goto(-175,10)
+    write(self.lg_dict["set_color6"][self.index_lg])
+    goto(-175,-5)
+    write(self.lg_dict["set_color7"][self.index_lg])
+    goto(-175,-20)
     write(self.lg_dict["set_color8"][self.index_lg])
-    goto(-175,0)
+    goto(-175,-35)
     write(self.lg_dict["set_color9"][self.index_lg])
-    goto(-175,-10)
+    goto(-175,-50)
     write(self.lg_dict["set_color10"][self.index_lg])
     if key==81:
       pencolor("black")
@@ -109,7 +117,10 @@ def color(self):
       pencolor("orange")
     if key==22:
       clear()
-      return "home"
+      return "home",False
+    if key==12:
+      clear()
+      return "home",True
     wait(9990)
 
 def define_key(self):
@@ -122,23 +133,23 @@ def define_key(self):
     wait(9990)
     goto(-175,70)
     write(self.lg_dict["set_key2"][self.index_lg])
-    goto(-175,60)
+    goto(-175,55)
     write(self.lg_dict["set_key3"][self.index_lg])
-    goto(-175,50)
-    write(self.lg_dict["set_key4"][self.index_lg])
     goto(-175,40)
+    write(self.lg_dict["set_key4"][self.index_lg])
+    goto(-175,25)
     write(self.lg_dict["set_key5"][self.index_lg])
-    goto(-175,30)
-    write(self.lg_dict["set_key6"][self.index_lg])
-    goto(-175,20)
-    write(self.lg_dict["set_key7"][self.index_lg])
     goto(-175,10)
+    write(self.lg_dict["set_key6"][self.index_lg])
+    goto(-175,-5)
+    write(self.lg_dict["set_key7"][self.index_lg])
+    goto(-175,-20)
     write(self.lg_dict["set_key8"][self.index_lg])
-    goto(-175,0)
+    goto(-175,-35)
     write(self.lg_dict["set_key9"][self.index_lg])
-    goto(-175,-10)
+    goto(-175,-50)
     write(self.lg_dict["set_key10"][self.index_lg])
-    goto(-175,-30)
+    goto(-175,-65)
     write(self.lg_dict["set_key11"][self.index_lg])
     if key==81:
       self.used_key_dict["K_cookie"] = new_key(self,("add cookies","cookie par click"),"K_cookie")
@@ -187,7 +198,10 @@ def define_key(self):
       key=None
     if key==22:
       clear()
-      return "home"
+      return "home",False
+    if key==12:
+      clear()
+      return "home",True
     wait(9990)
 
 def new_key(self,func,newkey):
@@ -201,7 +215,7 @@ def new_key(self,func,newkey):
     goto(-175,70)
     set_new_key1 = ("With which keybinds do you want to change : "+func[self.index_lg],"Avec quelle touche tu veux changer : "+func[self.index_lg])
     write(set_new_key1[self.index_lg])
-    goto(-175,60)
+    goto(-175,55)
     set_new_key2 = ("Return without changing the keybinds : "+K_dict[self.used_key_dict[newkey]][self.index_lg],"Revenir sans changer la touche : "+K_dict[self.used_key_dict[newkey]][self.index_lg])
     write(set_new_key2[self.index_lg])
     already_used = True
@@ -214,7 +228,7 @@ def new_key(self,func,newkey):
       for elt in self.used_key_dict.values():
         if already_used:
           if change_key == elt:
-            goto(-175,50)
+            goto(-175,40)
             set_new_key3 = ("The keybind "+K_dict[change_key][self.index_lg]+" is already used in another function","La touche "+K_dict[change_key][self.index_lg]+" est deja utilise dans une autre fonction")
             write(set_new_key3[self.index_lg]) 
             already_used=False
@@ -235,7 +249,7 @@ def language(self):
     wait(9990)
     goto(-175,70)
     write("1- English")
-    goto(-175,60)
+    goto(-175,55)
     write("2- Francais")
     if key==81:
       self.index_lg=self.lg_nb["en"]
@@ -247,5 +261,8 @@ def language(self):
       wait(9990)
     if key==22:
       clear()
-      return "home"
+      return "home",False
+    if key==12:
+      clear()
+      return "home",True
     wait(9990)

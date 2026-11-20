@@ -84,11 +84,17 @@ def end(self):
     write(self.lg_dict["achi2"][self.index_lg])
   return False
 
-def start(self):
+def start1(self):
   forward(0)
   hideturtle()
   penup()
   pencolor("black")
+  goto(-160,30)
+  write("1- Play in English")
+  goto(-160,20)
+  write("2- Jouer en Francais")
+
+def start2(self):
   goto(-160,30)
   write(self.lg_dict["start1"][self.index_lg])
   goto(-160,20)
@@ -105,3 +111,6 @@ def start(self):
   write(self.lg_dict["start7"][self.index_lg])
   goto(-160,-40)
   write(self.lg_dict["start8"][self.index_lg])
+
+
+
